@@ -87,6 +87,14 @@ build/
 .nuxt/
 out/
 
+# ── ARCHIVES & LARGE BINARIES ──────────────────────────────────
+# Zip files are usually build artifacts or personal exports — not source code
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
 # ── BACKUPS & TEMP FILES ───────────────────────────────────────
 *.bak
 *.tmp

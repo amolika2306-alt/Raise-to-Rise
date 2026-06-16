@@ -5,11 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Raise to Rise is a Hyderabad grassroots initiative turning ₹10 donations into pad distribution, food drives, and sanitation education for underserved communities.">
 <meta name="robots" content="index, follow">
+<meta name="author" content="Amolika Reddy">
+<meta name="theme-color" content="#152A4E">
+<link rel="canonical" href="https://raise-to-rise.netlify.app">
 <meta property="og:title" content="Raise to Rise Foundation">
 <meta property="og:description" content="Small hands, big change. Give ₹10 and help us reach Hyderabad's underserved communities with pads, food, and education.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://raise-to-rise.netlify.app">
 <meta property="og:image" content="https://raise-to-rise.netlify.app/raise_to_rise_logo.png">
+<meta property="og:image:alt" content="Raise to Rise Foundation — grassroots giving, Hyderabad">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Raise to Rise Foundation">
+<meta name="twitter:description" content="Give ₹10. We turn it into pads, food, and sanitation education for underserved communities in Hyderabad.">
+<meta name="twitter:image" content="https://raise-to-rise.netlify.app/raise_to_rise_logo.png">
 <title>Raise to Rise Foundation: When we lift others we all rise</title>
 <style>
   :root{
@@ -226,20 +234,20 @@
 <!-- COOKIE BANNER -->
 <div id="cookie-banner" role="region" aria-label="Cookie notice" aria-live="polite">
   <span>This site does not use tracking cookies or analytics. Our hosting provider (Netlify) may set essential technical cookies. <a href="privacy.html">Privacy Policy</a></span>
-  <button class="cookie-ok" onclick="dismissCookie()" aria-label="Dismiss cookie notice">Got it</button>
+  <button type="button" class="cookie-ok" aria-label="Dismiss cookie notice">Got it</button>
 </div>
 
 <!-- VIDEO LIGHTBOX -->
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Session video player" onclick="closeLightbox(event)">
-  <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close video">&times;</button>
-  <video id="lb-video" controls playsinline aria-label="Sanitation education session video">
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Session video player">
+  <button type="button" class="lightbox-close" aria-label="Close video">&times;</button>
+  <video id="lb-video" controls playsinline preload="metadata" aria-label="Sanitation education session video">
     <source src="drive2.mp4" type="video/mp4">
   </video>
 </div>
 
 <nav id="nav" aria-label="Main navigation">
   <a class="brand" href="#">
-    <img src="raise_to_rise_logo.png" alt="Raise to Rise">
+    <img src="raise_to_rise_logo.png" alt="Raise to Rise" fetchpriority="high">
     Raise to Rise
   </a>
   <div class="nav-links">
@@ -255,7 +263,7 @@
 
 <!-- HERO: blurred video background, text in foreground -->
 <section class="hero">
-  <video class="hero-video" autoplay muted loop playsinline aria-hidden="true">
+  <video class="hero-video" autoplay muted loop playsinline preload="none" aria-hidden="true">
     <source src="drive2.mp4" type="video/mp4">
   </video>
   <div class="hero-overlay"></div>
@@ -314,7 +322,7 @@
           <h3>Sanitation education</h3>
           <p>Menstrual health and hygiene sessions in government schools, pairing supplies with knowledge that lasts.</p>
           <div class="play-wrap">
-            <button class="play-btn" id="play-trigger" onclick="openLightbox()" aria-haspopup="dialog" aria-label="Watch a sanitation education session video">
+            <button type="button" class="play-btn" id="play-trigger" aria-haspopup="dialog" aria-label="Watch a sanitation education session video">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true" focusable="false"><polygon points="3,1 13,7 3,13" fill="white"/></svg>
               Watch a session
             </button>
@@ -472,19 +480,19 @@
 </footer>
 
 <script>
-  // cookie notice — dismissal persists across sessions
+  // cookie notice
   function dismissCookie() {
     try { localStorage.setItem('cookie_ok', '1'); } catch (_) {}
     document.getElementById('cookie-banner').classList.add('hidden');
   }
-
   try {
     if (localStorage.getItem('cookie_ok')) {
       document.getElementById('cookie-banner').classList.add('hidden');
     }
   } catch (_) {}
+  document.querySelector('.cookie-ok').addEventListener('click', dismissCookie);
 
-  // QR code: show text fallback if the external API doesn't load
+  // QR: show text fallback if external API doesn't respond
   const qrImg = document.getElementById('qr-img');
   const qrFallback = document.getElementById('qr-fallback');
   if (qrImg) {
@@ -494,13 +502,13 @@
     });
   }
 
-  // nav becomes opaque once the user scrolls past the hero
+  // nav turns opaque after scrolling past the hero
   const navEl = document.getElementById('nav');
   window.addEventListener('scroll', () => {
     navEl.classList.toggle('scrolled', window.scrollY > 60);
   }, { passive: true });
 
-  // lightbox — open/close + keyboard focus management
+  // lightbox
   let prevFocus = null;
   const lightbox = document.getElementById('lightbox');
 
@@ -512,9 +520,8 @@
     lightbox.querySelector('.lightbox-close').focus();
   }
 
-  function closeLightbox(e) {
-    // only block clicks that land somewhere other than the overlay or close button
-    if (e?.type === 'click' && e.target !== lightbox && !e.target.closest('.lightbox-close')) return;
+  function closeLightbox() {
+    if (!lightbox.classList.contains('open')) return; // guard against double-fire
     lightbox.classList.remove('open');
     const vid = document.getElementById('lb-video');
     vid.pause();
@@ -523,10 +530,17 @@
     prevFocus?.focus();
   }
 
-  // keep Tab key inside the dialog while it's open
+  document.getElementById('play-trigger').addEventListener('click', openLightbox);
+  document.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+  // trap Tab inside the dialog — catches all negative tabindex values
   lightbox.addEventListener('keydown', e => {
     if (e.key !== 'Tab') return;
-    const focusable = [...lightbox.querySelectorAll('button, video, [tabindex]:not([tabindex="-1"])')];
+    const focusable = [...lightbox.querySelectorAll(
+      'button, video, [tabindex]:not([tabindex^="-"])'
+    )];
     if (!focusable.length) return;
     if (e.shiftKey && document.activeElement === focusable[0]) {
       e.preventDefault();
@@ -535,10 +549,6 @@
       e.preventDefault();
       focusable[0].focus();
     }
-  });
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeLightbox(e);
   });
 </script>
 </body>

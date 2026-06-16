@@ -97,11 +97,12 @@
   <p>This is a static site with no server-side processing, no user accounts, and no database. Security measures in place:</p>
   <ul>
     <li>HTTPS enforced on all connections (HSTS, 1-year max-age, preload)</li>
-    <li>Content Security Policy blocking unauthorized scripts, frames, and outbound connections</li>
+    <li>Content Security Policy (CSP) restricting all script, style, image, and media sources; inline scripts and styles are permitted only because this is a fully static site with no server-side rendering — no external scripts are loaded</li>
     <li>X-Frame-Options set to DENY, preventing clickjacking</li>
-    <li>Permissions Policy disabling camera, microphone, geolocation, and other browser APIs</li>
-    <li>Common attack paths (WordPress admin, PHP files, .env, .git) blocked at the CDN edge</li>
+    <li>Permissions Policy disabling camera, microphone, geolocation, USB, Bluetooth, serial, and interest-cohort (FLoC) browser APIs</li>
+    <li>Common attack paths (WordPress admin, PHP files, .env, .git, SQL files) blocked at the CDN edge before any response is served</li>
     <li>No third-party trackers, analytics scripts, or ad networks</li>
+    <li>Our hosting provider (Netlify) may record server access logs including IP addresses as part of standard CDN operation; we do not access or use these logs</li>
   </ul>
 
   <h2>11. Changes to this policy</h2>

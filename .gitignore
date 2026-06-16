@@ -1,0 +1,95 @@
+# ── SECRETS & API KEYS ─────────────────────────────────────────
+# These should NEVER reach GitHub under any circumstances
+.env
+.env.local
+.env.*.local
+.env.production
+*.env
+secrets.json
+secrets.yaml
+secrets.yml
+config.secret.*
+
+# payment keys (Razorpay, Stripe, etc.)
+razorpay.json
+payment-config.*
+
+# ── PERSONAL INFORMATION ───────────────────────────────────────
+# Contact lists, donor data, phone numbers, addresses
+contacts.*
+donors.*
+donor-list.*
+phone-numbers.*
+personal-data.*
+*.csv           # spreadsheets often contain personal info
+*.xls
+*.xlsx
+
+# ── AUTHENTICATION & CERTIFICATES ──────────────────────────────
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+id_rsa
+id_rsa.pub
+id_ed25519
+id_ed25519.pub
+*.keystore
+service-account*.json   # Google / Firebase service accounts
+*-credentials.json
+
+# ── PLATFORM TOKENS ────────────────────────────────────────────
+.netlify/               # Netlify auth token
+.vercel/
+.firebase/
+firebase.json           # may contain project-specific config
+.firebaserc
+
+# ── LOGS (can contain IPs, emails, request data) ───────────────
+*.log
+npm-debug.log*
+yarn-error.log
+logs/
+
+# ── CLAUDE CODE SESSION DATA ───────────────────────────────────
+# Contains conversation history — keep private
+.claude/
+
+# ── OS NOISE ───────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+desktop.ini
+ehthumbs.db
+
+# ── EDITOR FOLDERS ─────────────────────────────────────────────
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# ── DEPENDENCIES (never commit these) ──────────────────────────
+node_modules/
+.pnp
+.pnp.js
+
+# ── BUILD OUTPUT ───────────────────────────────────────────────
+dist/
+build/
+.next/
+.nuxt/
+out/
+
+# ── BACKUPS & TEMP FILES ───────────────────────────────────────
+*.bak
+*.tmp
+*.swp
+*.swo
+*~

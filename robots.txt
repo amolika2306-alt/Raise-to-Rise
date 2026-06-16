@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /.netlify/
+
+Sitemap: https://raise-to-rise.netlify.app/sitemap.xml

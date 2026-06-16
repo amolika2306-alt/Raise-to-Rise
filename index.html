@@ -151,14 +151,14 @@
   /* ── HERO CONTENT ──────────────────────────────────────── */
   .hero-content{
     position:relative;z-index:2;
-    padding:0 24px 80px;
+    padding:0 24px 72px;
     max-width:1080px;margin:0 auto;width:100%;
     opacity:0;
     transform:translateY(48px);
     will-change:opacity,transform;
   }
-  /* extra bottom padding on phones so cookie banner doesn't overlap stats */
-  @media(max-width:600px){.hero-content{padding-bottom:110px}}
+  /* on phones push content up from bottom so cookie banner doesn't overlap */
+  @media(max-width:600px){.hero-content{padding-bottom:96px}}
   .hero-eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--coral-light);font-weight:700;margin-bottom:16px;display:block}
   .hero h1{font-family:var(--serif);font-size:clamp(38px,7vw,78px);color:#fff;line-height:1.0;letter-spacing:-.5px;max-width:14em}
   /* gradient text using exact logo colours */
@@ -170,26 +170,6 @@
   .hero-sub{font-size:clamp(15px,2.2vw,17px);color:rgba(255,255,255,.75);margin:18px 0 32px;max-width:42em;line-height:1.75}
   .hero-btns{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px}
 
-  /* glassmorphism stats strip */
-  .hero-stats{
-    display:grid;grid-template-columns:repeat(4,1fr);
-    background:rgba(255,255,255,.08);
-    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-    border:1px solid rgba(255,255,255,.14);
-    border-radius:16px;overflow:hidden;
-    width:fit-content;max-width:100%;
-  }
-  .hero-stat{padding:18px 28px;border-right:1px solid rgba(255,255,255,.1);text-align:center}
-  .hero-stat:last-child{border-right:none}
-  .hero-stat-num{font-size:21px;font-weight:800;color:#fff;font-family:var(--serif);letter-spacing:-.4px;line-height:1}
-  .hero-stat-lbl{font-size:10.5px;color:rgba(255,255,255,.58);text-transform:uppercase;letter-spacing:1.5px;margin-top:5px}
-  @media(max-width:700px){
-    .hero-stats{grid-template-columns:1fr 1fr;width:100%}
-    .hero-stat{border-right:none;border-bottom:1px solid rgba(255,255,255,.1)}
-    .hero-stat:nth-child(odd){border-right:1px solid rgba(255,255,255,.1)}
-    .hero-stat:nth-child(3),.hero-stat:nth-child(4){border-bottom:none}
-    .hero-stat{padding:14px 16px}.hero-stat-num{font-size:18px}
-  }
 
   /* ── SCROLL CUE ────────────────────────────────────────── */
   .scroll-cue{
@@ -451,24 +431,6 @@
       <div class="hero-btns">
         <a class="btn btn-coral" href="#pay">Give ₹10 today</a>
         <a class="btn btn-white" href="#work">See our work</a>
-      </div>
-      <div class="hero-stats" aria-label="Impact at a glance">
-        <div class="hero-stat">
-          <div class="hero-stat-num">₹10</div>
-          <div class="hero-stat-lbl">changes a life</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-num">3</div>
-          <div class="hero-stat-lbl">active programs</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-num">100%</div>
-          <div class="hero-stat-lbl">to direct costs</div>
-        </div>
-        <div class="hero-stat">
-          <div class="hero-stat-num">₹0</div>
-          <div class="hero-stat-lbl">overhead</div>
-        </div>
       </div>
     </div>
 
